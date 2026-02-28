@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<robot name="my_robo_v0" xmlns:xacro="https://www.ros.org/wiki/xacro">
+
+    <ros2_control name="roboSystem" type="system">
+        <hardware>
+            <plugin>robot_firmware/robotInterface</plugin>
+            <param name="port">/dev/ttyUSB0</param>
+        </hardware>
+        
+        <joint name="base_right_wheel_joint">
+            <command_interface name="velocity"/>
+            <state_interface name="velocity"/>
+            <state_interface name="position"/>
+        </joint>
+        <joint name="base_left_wheel_joint">
+            <command_interface name="velocity"/>
+            <state_interface name="velocity"/>
+            <state_interface name="position"/>
+        </joint>
+    </ros2_control>
+
+</robot>

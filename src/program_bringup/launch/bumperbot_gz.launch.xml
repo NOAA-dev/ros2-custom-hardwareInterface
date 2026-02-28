@@ -1,0 +1,36 @@
+<launch>
+    <let name="urdf_path" value="$(find-pkg-share my_urdfs)/urdf/bumperbot.urdf.xacro"/>
+    <let name="CONTROLLER_CONFIG" value="$(find-pkg-share program_bringup)/config/controllers.yaml"/>
+    <include file="$(find-pkg-share program_bringup)/launch/local_localisation.launch.py" />
+
+    <node pkg="controller_manager"
+        exec="ros2_control_node"
+        output="screen">
+    <param name="robot_description"
+            value="$(command 'xacro $(var urdf_path)')" />
+    <param name="use_sim_time" value="false"/>
+    <param from="$(var CONTROLLER_CONFIG)"/>
+    </node>
+
+
+    <node pkg="robot_state_publisher" exec="robot_state_publisher">
+        <param name="robot_description"
+               value="$(command 'xacro $(var urdf_path)')" />
+        <param name="publish_fixed_joints" value="true"/>
+    </node>
+
+
+    <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster --controller-manager /controller_manager"/>
+    
+    <node pkg="my_py_pkg1" exec="joint_speed_controller" output="screen">
+        <param name="use_sim_time" value="false"/>
+    </node>
+
+    <node pkg="my_py_pkg1" exec="mpu6050_driver" output="screen">
+        <param name="use_sim_time" value="false"/>
+    </node>
+
+    <node pkg="controller_manager" exec="spawner" args="simple_velocity_controller --controller-manager /controller_manager"/>
+
+
+</launch>
