@@ -13,6 +13,12 @@ Encoder feedback is returned to ROS
 Joint states are updated and visualized in RViz
 The goal of this project is to structure hardware control in a way that mirrors real robotic system architectures.
 
+## 🎥 Demo
+
+[![Hardware Interface Demo](https://img.youtube.com/vi/DjoeGvIWBWg/0.jpg)](https://youtu.be/DjoeGvIWBWg)
+
+▶ Click the image to watch the full hardware-in-the-loop demonstration.
+
 # Workspace Structure
 src/
  ├── my_py_pkg1
@@ -117,14 +123,14 @@ Focused on validating hardware control pipeline
 
 # Build Instructions
 
-"""
+```bash
 From workspace root:
 
 colcon build
 source install/setup.bash
 Launch system:
 ros2 launch program_bringup <your_launch_file>.launch.py
-"""
+```
 
 Ensure:
 
